@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafael <rafael@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rsabatie <rsabatie@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 19:46:12 by rafael            #+#    #+#             */
-/*   Updated: 2023/05/14 20:17:30 by rafael           ###   ########.fr       */
+/*   Updated: 2023/05/16 19:17:20 by rsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t  i;
-	size_t  j;
-	size_t	len1;
-	size_t	len2;
+	int  i;
+	int  j;
+	int	len1;
+	int	len2;
 	char	*s1_et_s2;
 
 	if (!s1 || !s2)
@@ -39,7 +39,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (s1_et_s2);
 }
 
-size_t	ft_strlen(const char *str)
+int	ft_strlen(const char *str)
 {
 	int	i;
 
@@ -49,25 +49,6 @@ size_t	ft_strlen(const char *str)
 		i++;
 	}
 	return (i);
-}
-
-char	*ft_strchr(const char *str, int c)
-{
-	int		i;
-	char	*buffer;
-
-	buffer = (char *)str;
-	i = 0;
-	c = (char)c;
-	while (buffer[i])
-	{
-		if (buffer[i] == c)
-			return (buffer + i);
-		i++;
-	}
-	if (buffer[i] == c)
-		return (buffer + i);
-	return (NULL);
 }
 
 char	*ft_strdup(const char *s1)
@@ -88,7 +69,7 @@ char	*ft_strdup(const char *s1)
 	return (res);
 }
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	*ft_calloc(int nmemb, int size)
 {
 	void	*ptr;
 
@@ -102,7 +83,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	return (ptr);
 }
 
-void	ft_bzero(void *s, size_t n)
+void	ft_bzero(void *s, int n)
 {
 	unsigned char	*ptr;
 
