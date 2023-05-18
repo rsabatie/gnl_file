@@ -6,7 +6,7 @@
 /*   By: rsabatie <rsabatie@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 19:46:12 by rafael            #+#    #+#             */
-/*   Updated: 2023/05/16 19:17:20 by rsabatie         ###   ########.fr       */
+/*   Updated: 2023/05/18 18:39:40 by rsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,13 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int  i;
-	int  j;
-	int	len1;
-	int	len2;
+	int		i;
+	int		j;
 	char	*s1_et_s2;
 
 	if (!s1 || !s2)
 		return (NULL);
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	s1_et_s2 = ft_calloc((len1 + len2 + 1), sizeof(char));
+	s1_et_s2 = ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
 	if (!s1_et_s2)
 		return (NULL);
 	i = 0;
@@ -35,7 +31,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i++;
 	}
 	while (s2[j])
-		s1_et_s2[++i] = s2[j++];
+	{
+		s1_et_s2[i + j] = s2[j];
+		j++;
+	}
 	return (s1_et_s2);
 }
 
