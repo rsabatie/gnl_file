@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rsabatie <rsabatie@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 19:46:12 by rafael            #+#    #+#             */
-/*   Updated: 2023/05/21 18:33:59 by rsabatie         ###   ########.fr       */
+/*   Updated: 2023/05/21 17:14:50 by rsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strjoin(char *s1, char *s2)
 {
@@ -56,12 +56,10 @@ char	*ft_strdup(char *s1)
 	char	*res;
 	int		i;
 
-	if (!s1)
-		return (NULL);
+	i = 0;
 	res = malloc((ft_strlen(s1) + 1) * sizeof(char));
 	if (res == NULL)
 		return (NULL);
-	i = 0;
 	while (s1[i])
 	{
 		res[i] = s1[i];

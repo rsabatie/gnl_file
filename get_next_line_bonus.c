@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rsabatie <rsabatie@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 19:46:09 by rafael            #+#    #+#             */
-/*   Updated: 2023/05/21 19:04:03 by rsabatie         ###   ########.fr       */
+/*   Updated: 2023/05/21 17:19:27 by rsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*ft_read_file(char *txt_save, int fd)
 {
@@ -18,6 +18,8 @@ static char	*ft_read_file(char *txt_save, int fd)
 	char	buffer[BUFFER_SIZE + 1];
 	char	*update;
 
+	if (!txt_save)
+		txt_save = ft_calloc(1, sizeof(char));
 	update = ft_strdup(txt_save);
 	i = 1;
 	while (i > 0)
@@ -91,29 +93,25 @@ static char	*ft_build_next(char *txt_save)
 
 char	*get_next_line(int fd)
 {
-	static char	*txt_save;
+	static char	*txt_save[OPEN_MAX];
 	char		*line;
 
 	line = NULL;
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > OPEN_MAX)
 		return (NULL);
-	if (!txt_save)
-		txt_save = ft_calloc(1, sizeof(char));
-	// if (read(fd, 0, 0) < 0)
-	// {
-	// 	free(txt_save);
-	// 	txt_save = NULL;
-	// 	return (NULL);
-	// }
-	txt_save = ft_read_file(txt_save, fd);
-	if (!txt_save)
+	if (read(fd, 0, 0) < 0)
+	{
+		free(txt_save[fd]);
+		txt_save[fd] = NULL;
 		return (NULL);
-	if (txt_save[0] == '\0')
-		return (free(txt_save), NULL);
-	line = ft_create_line(txt_save);
-	if (!line)
+	}
+	txt_save[fd] = ft_read_file(txt_save[fd], fd);
+	if (!txt_save[fd])
 		return (NULL);
-	txt_save = ft_build_next(txt_save);
+	if (txt_save[fd][0] == '\0')
+		return (free(txt_save[fd]), NULL);
+	line = ft_create_line(txt_save[fd]);
+	txt_save[fd] = ft_build_next(txt_save[fd]);
 	return (line);
 }
 
@@ -139,16 +137,16 @@ int	ft_strchr(const char *str, int c)
 	return (0);
 }
 
-int main(void)
-{
-	int fd;
+// int main(void)
+// {
+// 	int fd;
 
-	fd = open("test.txt", O_RDONLY);
-	printf("\n1st line : \n%s\n\n", get_next_line(fd));
-	printf("\n2nd line : \n%s\n\n", get_next_line(fd));
-	printf("\n3rd line : \n%s\n\n", get_next_line(fd));
-	printf("\n4th line : \n%s\n\n", get_next_line(fd));
-	printf("\n5th line : \n%s\n\n", get_next_line(fd));
-	close(fd);
-	return (0);
-}
+// 	fd = open("test.txt", O_RDONLY);
+// 	printf("\n1st line : \n%s\n\n", get_next_line(fd));
+// 	printf("\n2nd line : \n%s\n\n", get_next_line(fd));
+// 	printf("\n3rd line : \n%s\n\n", get_next_line(fd));
+// 	printf("\n4th line : \n%s\n\n", get_next_line(fd));
+// 	printf("\n5th line : \n%s\n\n", get_next_line(fd));
+// 	close(fd);
+// 	return (0);
+// }
